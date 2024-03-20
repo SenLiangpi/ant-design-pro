@@ -1,28 +1,61 @@
-import { ProLayoutProps } from '@ant-design/pro-components';
+import { MenuTheme } from 'antd/es/menu/MenuContext';
 
-/**
- * @name
- */
-const Settings: ProLayoutProps & {
-  pwa?: boolean;
-  logo?: string;
-} = {
-  navTheme: 'light',
+export type ContentWidth = 'Fluid' | 'Fixed';
+
+export interface DefaultSettings {
+  /**
+   * theme for nav menu
+   */
+  navTheme: MenuTheme;
+  /**
+   * primary color of ant design
+   */
+  primaryColor: string;
+  /**
+   * nav menu position: `sidemenu` or `topmenu`
+   */
+  layout: 'sidemenu' | 'topmenu';
+  /**
+   * layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
+   */
+  contentWidth: ContentWidth;
+  /**
+   * sticky header
+   */
+  fixedHeader: boolean;
+  /**
+   * auto hide header
+   */
+  autoHideHeader: boolean;
+  /**
+   * sticky siderbar
+   */
+  fixSiderbar: boolean;
+  menu: { locale: boolean };
+  title: string;
+  pwa: boolean;
+  // Your custom iconfont Symbol script Url
+  // eg：//at.alicdn.com/t/font_1039637_btcrd5co4w.js
+  // 注意：如果需要图标多色，Iconfont 图标项目里要进行批量去色处理
+  // Usage: https://github.com/ant-design/ant-design-pro/pull/3517
+  iconfontUrl: string;
+  colorWeak: boolean;
+}
+
+export default {
+  navTheme: 'dark',
   // 拂晓蓝
-  colorPrimary: '#1890ff',
-  layout: 'mix',
+  primaryColor: '#1890ff',
+  layout: 'sidemenu',
   contentWidth: 'Fluid',
   fixedHeader: false,
-  fixSiderbar: true,
+  autoHideHeader: false,
+  fixSiderbar: false,
   colorWeak: false,
-  title: 'Ant Design Pro',
-  pwa: true,
-  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
-  iconfontUrl: '',
-  token: {
-    // 参见ts声明，demo 见文档，通过token 修改样式
-    //https://procomponents.ant.design/components/layout#%E9%80%9A%E8%BF%87-token-%E4%BF%AE%E6%94%B9%E6%A0%B7%E5%BC%8F
+  menu: {
+    locale: true,
   },
-};
-
-export default Settings;
+  title: 'Ant Design Pro',
+  pwa: false,
+  iconfontUrl: '',
+} as DefaultSettings;

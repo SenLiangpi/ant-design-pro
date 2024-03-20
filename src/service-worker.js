@@ -1,9 +1,10 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-underscore-dangle */
 /* globals workbox */
 workbox.core.setCacheNameDetails({
   prefix: 'antd-pro',
-  suffix: 'v5',
+  suffix: 'v1',
 });
 // Control all opened tabs ASAP
 workbox.clientsClaim();
@@ -28,10 +29,14 @@ workbox.routing.registerNavigationRoute('/index.html');
  * https://developers.google.com/web/tools/workbox/reference-docs/latest/workbox.strategies
  */
 
-/** Handle API requests */
+/**
+ * Handle API requests
+ */
 workbox.routing.registerRoute(/\/api\//, workbox.strategies.networkFirst());
 
-/** Handle third party requests */
+/**
+ * Handle third party requests
+ */
 workbox.routing.registerRoute(
   /^https:\/\/gw\.alipayobjects\.com\//,
   workbox.strategies.networkFirst(),
@@ -42,23 +47,23 @@ workbox.routing.registerRoute(
 );
 workbox.routing.registerRoute(/\/color.less/, workbox.strategies.networkFirst());
 
-/** Response to client after skipping waiting with MessageChannel */
-addEventListener('message', (event) => {
+/**
+ * Response to client after skipping waiting with MessageChannel
+ */
+addEventListener('message', event => {
   const replyPort = event.ports[0];
   const message = event.data;
   if (replyPort && message && message.type === 'skip-waiting') {
     event.waitUntil(
       self.skipWaiting().then(
-        () => {
+        () =>
           replyPort.postMessage({
             error: null,
-          });
-        },
-        (error) => {
+          }),
+        error =>
           replyPort.postMessage({
             error,
-          });
-        },
+          }),
       ),
     );
   }
